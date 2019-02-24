@@ -26,20 +26,20 @@ make PDINCLUDEDIR=../pure-data/src/
 To run the example patch:
 
 ```pd help-helios.pd
-
+ 
 ```
 
 (from wherever you have installed Pd. For the Purr-data distribution of Pd, I used this:)
 
 ```/Applications/Pd-l2ork.app/Contents/MacOS/nwjs help-helios.pd
-
+ 
 ```
 
 ## Copyright
 
 Except as otherwise noted, all files in the this distribution are
 
-Copyright (c) 2019 Tim Redfern
+###Copyright (c) 2019 Tim Redfern
 
 For information on usage and redistribution, and for a DISCLAIMER OF ALL
 WARRANTIES, see LICENSE.txt included in this distribution.
