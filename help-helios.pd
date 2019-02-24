@@ -8,7 +8,7 @@
 #X obj 25 217 helios 20000;
 #X msg 70 160 intensity \$1;
 #X floatatom 70 132 5 0 0 0 - - -, f 5;
-#N canvas 921 539 532 304 settings 1;
+#N canvas 921 539 532 304 settings 0;
 #X obj 18 291 s settings;
 #X floatatom 49 163 5 0 0 0 - - -, f 5;
 #X text 101 163 <---------;
