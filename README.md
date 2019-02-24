@@ -14,7 +14,7 @@ note - it's not presently possible to have more than 1 helios object, and if you
 
 ## Use
 
-pd_helios currently builds on MacOS, tested on Mojave (OSX v10.14)
+pd_helios currently builds on MacOS, tested on Mojave (OSX v10.14). It should work on both Linux and Microsoft Windows with the appropriate libusb library.
 
 ## To build
 
