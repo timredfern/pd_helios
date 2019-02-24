@@ -40,7 +40,7 @@ pd help-helios.pd
 
 Except as otherwise noted, all files in the this distribution are
 
-###Copyright (c) 2019 Tim Redfern
+#### Copyright (c) 2019 Tim Redfern
 
 For information on usage and redistribution, and for a DISCLAIMER OF ALL
 WARRANTIES, see LICENSE.txt included in this distribution.
