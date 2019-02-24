@@ -45,7 +45,7 @@ Except as otherwise noted, all files in the this distribution are
 #### Copyright © 2019 Tim Redfern
 
 For information on usage and redistribution, and for a DISCLAIMER OF ALL
-WARRANTIES, see LICENSE.txt included in this distribution.
+WARRANTIES, see LICENSE included in this distribution.
 (Note that Helios SDK and libusb are copyrighted separately).
 
 ## NOTE
