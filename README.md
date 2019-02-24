@@ -16,7 +16,8 @@ pd_helios currently builds on MacOS, tested on Mojave (OSX v10.14)
 
 Clone this repo and the source code to pure data (see above)
 
-```cd pd_helios
+```
+cd pd_helios
 
 make PDINCLUDEDIR=../pure-data/src/
 ```
@@ -25,14 +26,14 @@ make PDINCLUDEDIR=../pure-data/src/
 
 To run the example patch:
 
-```pd help-helios.pd
- 
+```
+pd help-helios.pd
 ```
 
 (from wherever you have installed Pd. For the Purr-data distribution of Pd, I used this:)
 
-```/Applications/Pd-l2ork.app/Contents/MacOS/nwjs help-helios.pd
- 
+```
+/Applications/Pd-l2ork.app/Contents/MacOS/nwjs help-helios.pd 
 ```
 
 ## Copyright
