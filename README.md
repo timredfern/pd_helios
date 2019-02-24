@@ -4,6 +4,8 @@ Pure data external for the Helios Laser DAC
 * https://github.com/Grix/helios_dac
 * https://github.com/pure-data/pure-data
 
+![help-helios.pd](help.png)
+
 ## Version
 
 0.1
@@ -50,7 +52,7 @@ WARRANTIES, see LICENSE included in this distribution.
 
 ## NOTE
 
-Lasers are dangerous. Improper use of this software can damage your laser, or yourself. This software comes wit NO WARRANTY, see above.
+Lasers are dangerous. Improper use of this software can damage your laser, or yourself. This software comes with NO WARRANTY, see above.
 
 ## Acknowledgements
 

@@ -116,8 +116,8 @@ int Helios::draw(){
     }
 
 	if (device!=HELIOS_NODEVICE){
-    	while (!dac.GetStatus(device)); //timeout for this?
     	if (enabled){
+    		while (!dac.GetStatus(device)); //timeout for this?
 	        if (HELIOS_ERROR==dac.WriteFrame(device, pps, HELIOS_FLAGS_DEFAULT, &points[0], min(HELIOS_MAX_POINTS,(int)points.size()))){
 	            printf("ofxHelios: write error (%i,%i,%i,%i)\n",device, pps, HELIOS_FLAGS_DEFAULT, (int)points.size());
 	            return -1;
