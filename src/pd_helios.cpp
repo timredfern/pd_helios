@@ -1,4 +1,11 @@
-#include "pd_helios.h"
+/*
+ * pd_helios
+ * © 2019 Tim Redfern
+ * licenced under the LGPL v3.0
+ * see LICENSE
+ */
+
+ #include "pd_helios.h"
 
 #define _USE_MATH_DEFINES
  

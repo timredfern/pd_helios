@@ -1,3 +1,10 @@
+/*
+ * pd_helios
+ * © 2019 Tim Redfern
+ * licenced under the LGPL v3.0
+ * see LICENSE
+ */
+
 #ifndef Helios_h
 #define Helios_h
 #define HELIOS_VERSION 0.1

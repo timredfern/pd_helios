@@ -1,15 +1,8 @@
 /*
- * HOWTO write an External for Pure data
- * (c) 2001-2006 IOhannes m zmölnig zmoelnig[AT]iem.at
- *
- * this is the source-code for the third example in the HOWTO
- * it creates an object that increments and outputs a helios
- * whenever it gets banged.
- * the helios value can be "set" to a special value, or "reset" to a default
- * an upper and lower boundary can be specified: whenever the helios crosses
- * such boundary a "bang" is emitted at the 2nd outlet and the helios value wraps
- *
- * for legal issues please see the file LICENSE.txt
+ * pd_helios
+ * © 2019 Tim Redfern
+ * licenced under the LGPL v3.0
+ * see LICENSE
  */
 
 extern "C" {
