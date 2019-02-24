@@ -8,6 +8,8 @@ Pure data external for the Helios Laser DAC
 
 0.1
 
+note - it's not presently possible to have more than 1 helios object, and if you change the creation parameter (maximum total points), you must reload the patch. 
+
 ## Use
 
 pd_helios currently builds on MacOS, tested on Mojave (OSX v10.14)
@@ -24,7 +26,7 @@ make PDINCLUDEDIR=../pure-data/src/
 
 (or wherever you cloned pure data)
 
-To run the example patch:
+To test the example patch:
 
 ```
 pd help-helios.pd
@@ -40,7 +42,7 @@ pd help-helios.pd
 
 Except as otherwise noted, all files in the this distribution are
 
-#### Copyright (c) 2019 Tim Redfern
+#### Copyright © 2019 Tim Redfern
 
 For information on usage and redistribution, and for a DISCLAIMER OF ALL
 WARRANTIES, see LICENSE.txt included in this distribution.
