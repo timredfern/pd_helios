@@ -40,6 +40,8 @@ cannot receive a new frame until the currently playing frame finishes, freeing u
 	#define HELIOS_EXPORT extern "C"
 #endif
 
+#define STDCALL __stdcall
+
 bool inited = false;
 bool flipX = true;
 
@@ -53,6 +55,10 @@ HELIOS_EXPORT int OpenDevices();
 //Gets status from the specified dac.
 //Return 1 if ready to receive new frame, 0 if not, -1 if communcation failed
 HELIOS_EXPORT int GetStatus(unsigned int dacNum);
+
+//Sets libusb debug log level
+//See libusb.h for log level values
+HELIOS_EXPORT int SetLibusbDebugLogLevel(int logLevel);
 
 //writes and outputs a frame to the speficied dac
 //dacNum: dac number (0 to n where n+1 is the return value from OpenDevices() )
@@ -97,3 +103,27 @@ HELIOS_EXPORT int CloseDevices();
 //Clears the GPNVM1 bit on the DACs microcontroller. This will cause the DAC to boot into SAM-BA bootloader
 //which allows new firmware to be uploaded over USB.
 HELIOS_EXPORT int EraseFirmware(unsigned int dacNum);
+
+
+/* EzAudDac API */
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+
+	struct EAD_Pnt_s {
+		int16_t X;
+		int16_t Y;
+		int16_t R;
+		int16_t G;
+		int16_t B;
+		int16_t I;
+		int16_t AL;
+		int16_t AR;
+	};
+
+	HELIOS_EXPORT int STDCALL EzAudDacGetCardNum(void);
+	HELIOS_EXPORT bool STDCALL EzAudDacWriteFrame(const int *CardNum, const struct EAD_Pnt_s* data, int Bytes, uint16_t PPS);
+	HELIOS_EXPORT bool STDCALL EzAudDacWriteFrameNR(const int *CardNum, const struct EAD_Pnt_s* data, int Bytes, uint16_t PPS, uint16_t Reps);
+	HELIOS_EXPORT int STDCALL EzAudDacGetStatus(const int *CardNum);
+	HELIOS_EXPORT bool STDCALL EzAudDacStop(const int *CardNum);
+	HELIOS_EXPORT bool STDCALL EzAudDacClose(void);
+
+#endif

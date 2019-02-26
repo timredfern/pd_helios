@@ -34,15 +34,23 @@ int OpenDevices()
 int WriteFrame(unsigned int dacNum, int pps, std::uint8_t flags, HeliosPoint* points, int numOfPoints)
 {
 	if (!inited)
-		return HELIOS_ERROR;
+		return HELIOS_ERROR_NOT_INITIALIZED;
 
 	return dacController->WriteFrame(dacNum, pps, flags, points, numOfPoints);
+}
+
+int SetLibusbDebugLogLevel(int logLevel)
+{
+	if (!inited)
+		return HELIOS_ERROR_NOT_INITIALIZED;
+
+	return dacController->SetLibusbDebugLogLevel(logLevel);
 }
 
 int Stop(unsigned int dacNum)
 {
 	if (!inited)
-		return HELIOS_ERROR;
+		return HELIOS_ERROR_NOT_INITIALIZED;
 
 	return dacController->Stop(dacNum);
 }
@@ -50,7 +58,7 @@ int Stop(unsigned int dacNum)
 int GetName(unsigned int dacNum, char* name)
 {
 	if (!inited)
-		return  HELIOS_ERROR;
+		return  HELIOS_ERROR_NOT_INITIALIZED;
 
 	return dacController->GetName(dacNum, name);
 }
@@ -58,7 +66,7 @@ int GetName(unsigned int dacNum, char* name)
 int SetName(unsigned int dacNum, char* name)
 {
 	if (!inited)
-		return  HELIOS_ERROR;
+		return  HELIOS_ERROR_NOT_INITIALIZED;
 
 	return dacController->SetName(dacNum, name);
 }
@@ -66,7 +74,7 @@ int SetName(unsigned int dacNum, char* name)
 int GetStatus(unsigned int dacNum)
 {
 	if (!inited)
-		return HELIOS_ERROR;
+		return HELIOS_ERROR_NOT_INITIALIZED;
 
 	return (int)dacController->GetStatus(dacNum);
 }
@@ -74,7 +82,7 @@ int GetStatus(unsigned int dacNum)
 int SetShutter(unsigned int dacNum, bool value)
 {
 	if (!inited)
-		return HELIOS_ERROR;
+		return HELIOS_ERROR_NOT_INITIALIZED;
 
 	return dacController->SetShutter(dacNum, value);
 }
@@ -82,7 +90,7 @@ int SetShutter(unsigned int dacNum, bool value)
 int GetFirmwareVersion(unsigned int dacNum)
 {
 	if (!inited)
-		return HELIOS_ERROR;
+		return HELIOS_ERROR_NOT_INITIALIZED;
 
 	return dacController->GetFirmwareVersion(dacNum);
 }
@@ -90,7 +98,7 @@ int GetFirmwareVersion(unsigned int dacNum)
 int EraseFirmware(unsigned int dacNum)
 {
 	if (!inited)
-		return  HELIOS_ERROR;
+		return  HELIOS_ERROR_NOT_INITIALIZED;
 
 	return dacController->EraseFirmware(dacNum);
 }
@@ -104,14 +112,14 @@ int CloseDevices()
 		return HELIOS_SUCCESS;
 	}
 	else
-		return HELIOS_ERROR;
+		return HELIOS_ERROR_NOT_INITIALIZED;
 }
 
 
-//Below is OLSC implementation
-//OLSC API is designed by Chris Favreau, MIT License
-
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+
+//OLSC implementation
+//OLSC API is designed by Chris Favreau, MIT License
 
 OLSC_API int __stdcall OLSC_GetAPIVersion(void)
 {
@@ -268,6 +276,67 @@ OLSC_API int __stdcall OLSC_ReadTTL(int device_number, DWORD& data)
 {
 	//not supported
 	return OLSC_ERROR_NONE;
+}
+
+//EZAudDAC API wrapper
+
+bool STDCALL EzAudDacWriteFrameNR(const int *CardNum, const struct EAD_Pnt_s* data, int Bytes, uint16_t PPS, uint16_t Reps)
+{
+	unsigned int dacNum = *CardNum;
+	unsigned int numPoints = Bytes / sizeof(*data);
+	HeliosPoint frameBuffer[HELIOS_MAX_POINTS * 7 + 5];
+	for (unsigned int i = 0; i < numPoints; i++)
+	{
+		frameBuffer[i].x = (data[i].X + 0xFFFF / 2) >> 4;
+		frameBuffer[i].y = (data[i].Y + 0xFFFF / 2) >> 4;
+		frameBuffer[i].r = (data[i].R + 0xFFFF / 2) >> 8;
+		frameBuffer[i].g = (data[i].G + 0xFFFF / 2) >> 8;
+		frameBuffer[i].b = (data[i].B + 0xFFFF / 2) >> 8;
+		frameBuffer[i].i = (data[i].I + 0xFFFF / 2) >> 8;
+	}
+	if (Reps == 1)
+		return WriteFrame(dacNum, PPS, HELIOS_FLAGS_SINGLE_MODE, frameBuffer, numPoints);
+	else
+		return WriteFrame(dacNum, PPS, HELIOS_FLAGS_DEFAULT, frameBuffer, numPoints); //ignore reps over 1, play continuously instead
+}
+
+bool STDCALL EzAudDacWriteFrame(const int *CardNum, const struct EAD_Pnt_s* data, int Bytes, uint16_t PPS)
+{
+	unsigned int dacNum = *CardNum;
+	unsigned int numPoints = Bytes / sizeof(*data);
+	HeliosPoint frameBuffer[HELIOS_MAX_POINTS * 7 + 5];
+	for (unsigned int i = 0; i < numPoints; i++)
+	{
+		frameBuffer[i].x = (data[i].X + 0xFFFF/2) >> 4;
+		frameBuffer[i].y = (data[i].Y + 0xFFFF/2) >> 4;
+		frameBuffer[i].r = (data[i].R + 0xFFFF/2) >> 8;
+		frameBuffer[i].g = (data[i].G + 0xFFFF/2) >> 8;
+		frameBuffer[i].b = (data[i].B + 0xFFFF/2) >> 8;
+		frameBuffer[i].i = (data[i].I + 0xFFFF/2) >> 8;
+	}
+	return WriteFrame(dacNum, PPS, HELIOS_FLAGS_DEFAULT, frameBuffer, numPoints);
+}
+
+int STDCALL EzAudDacGetCardNum(void)
+{
+	return OpenDevices();
+}
+
+int STDCALL EzAudDacGetStatus(const int *CardNum)
+{
+	unsigned int dacNum = *CardNum;
+	return GetStatus(dacNum);
+}
+
+bool STDCALL EzAudDacClose(void)
+{
+	return CloseDevices();
+}
+
+bool STDCALL EzAudDacStop(const int *CardNum)
+{
+	unsigned int dacNum = *CardNum;
+	return Stop(dacNum);
 }
 
 #endif
