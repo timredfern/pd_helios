@@ -95,14 +95,17 @@ void blanknum_set(t_helios *x, t_floatarg f)
   redraw(x);
 }
 
+void helios_free(t_helios *x)
+{
+  delete x->helios;
+}
+
 void *helios_new(t_symbol *s, int argc, t_atom *argv)
 {
   t_helios *x = (t_helios *)pd_new(helios_class);
 
   post("pd_helios new: opening devices");
 
-  
-  
   /* depending on the number of arguments we interprete them differently */
   switch(argc){
     default:
@@ -135,7 +138,8 @@ void helios_setup(void) {
 
   helios_class = class_new(gensym("helios"),
                             (t_newmethod)helios_new,
-                            0, sizeof(t_helios),
+                            (t_method)helios_free,
+                            sizeof(t_helios),
                             CLASS_DEFAULT, 
                             A_GIMME, /* an arbitrary number of arguments 
                                       * which are of arbitrary type */

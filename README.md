@@ -10,7 +10,7 @@ Pure data external for the Helios Laser DAC
 
 0.1
 
-note - it's not presently possible to have more than 1 helios object, and if you change the creation parameter (maximum total points), you must reload the patch. 
+note - it's not presently possible to have more than 1 helios object open. 
 
 ## Use
 

@@ -67,19 +67,6 @@ public:
 	std::uint8_t r,g,b;	
 };
 
-class colour {
-public:
-	colour(){
-		r=g=b=0;
-	}
-	colour(uint8_t _r,uint8_t _g, uint8_t _b){
-		r=_r;
-		g=_g;
-		b=_b;
-	}
-	uint8_t r,g,b;
-};
-
 class Helios
 {
 public:
