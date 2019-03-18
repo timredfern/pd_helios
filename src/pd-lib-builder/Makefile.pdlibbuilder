@@ -534,7 +534,7 @@ ifeq ($(system), Linux)
   pkglibdir = $(libdir)/pd-externals
   pdincludepath := $(wildcard /usr/include/pd)
   extension = pd_linux
-  cpp.flags := -DUNIX
+  cpp.flags := -DUNIX -std=c++14
   c.flags := -fPIC
   c.ldflags := -rdynamic -shared -fPIC -Wl,-rpath,"\$$ORIGIN",--enable-new-dtags
   c.ldlibs := -lc -lm
@@ -561,7 +561,7 @@ ifeq ($(system), Darwin)
     /Applications/Pd*.app/Contents/Resources/src))
   extension = pd_darwin
   cpp.flags := -DUNIX -DMACOSX -I /sw/include -std=c++14
-  c.flags :=
+  c.flags := 
   c.ldflags := -undefined suppress -flat_namespace -bundle
   c.ldlibs := -lc
   cxx.ldflags := -undefined suppress -flat_namespace -bundle
@@ -571,7 +571,9 @@ ifeq ($(system), Darwin)
     -install_name @loader_path/$(shared.lib) \
     -compatibility_version 1 -current_version 1.0
   version.flag := $(filter $(cflags), -mmacosx-version-min=%)
-  arch := x86_64
+  arch := i386 x86_64
+  version.flag = -mmacosx-version-min=10.10
+
   ifneq ($(filter -mmacosx-version-min=%, $(cflags)),)
     version.flag := $(filter -mmacosx-version-min=%, $(cflags))
   endif
