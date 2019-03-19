@@ -20,11 +20,10 @@ endif
 
 ifeq ($(system), Darwin)
 	ldlibs =  libusb-1.0.0.dylib
-	ldflags = -Wl,-rpath,./
 else
 	ldlibs = -lusb-1.0
-	ldflags = -Wl,-rpath,./
 endif
 
-PDLIBBUILDER_DIR=src/pd-lib-builder/
-include $(PDLIBBUILDER_DIR)/Makefile.pdlibbuilder
+ldflags = -Wl,-rpath,./
+
+include src/pd-lib-builder/Makefile.pdlibbuilder

@@ -61,6 +61,7 @@ int Helios::draw(){
             );
     }
 
+
     //step through line points
     int i;
     for (i=0;i<line.size();i++){

@@ -73,28 +73,30 @@ public:
     
     Helios(int _pps=20000,int _intensity=255,int _device = 0,int _subdivide=DEFAULT_SUBDIVIDE,int _blank_num=DEFAULT_BLANK_NUM,int _max_angle=DEFAULT_MAX_ANGLE,bool _enabled=false)
     {
+        std::cout << "Helios v "<<HELIOS_VERSION;
+
         int numdevices=dac.OpenDevices();
         for (int i=0;i<numdevices;i++){
-            std::cout << "Helios v "<<HELIOS_VERSION<<": found laser DAC: firmware v "<<dac.GetFirmwareVersion(i)<<std::endl;
+            std::cout << ": found laser DAC: firmware v "<<dac.GetFirmwareVersion(i)<<std::endl;
         }
         if (!numdevices){
-            std::cout << "Helios v "<<HELIOS_VERSION<<": no devices found"<<std::endl;
-
+            std::cout << ": no devices found"<<std::endl;
+            device=HELIOS_NODEVICE;
         }
-        if (_device>=numdevices){
-            std::cout << "Helios v "<<HELIOS_VERSION<<": could not open device "<<_device<<std::endl;
+        else if (_device>=numdevices){
+            std::cout << ": could not open device "<<_device<<std::endl;
             device=HELIOS_NODEVICE;
         }
         else {
             device=_device;
             pps=_pps;
-            intensity=_intensity;
-            subdivide=_subdivide;
-            blank_num=_blank_num;
-            max_angle=_max_angle;
-            enabled=_enabled;
             dac.SetShutter(device,false);
         }
+        intensity=_intensity;
+        subdivide=_subdivide;
+        blank_num=_blank_num;
+        max_angle=_max_angle;
+        enabled=_enabled;
         output_centre=point(0x800,0x800);
     }
     
@@ -145,7 +147,9 @@ public:
         	enabled=e;
             //std::cout << "Helios v "<<HELIOS_VERSION<<": "<<(enabled?"enabled":"disabled")<<std::endl;
         	if (!enabled){
-        		dac.Stop(device);
+                if (device!=HELIOS_NODEVICE){ 
+                    dac.Stop(device);
+                }
         	}
         	
         }
