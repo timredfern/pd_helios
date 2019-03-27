@@ -14,7 +14,7 @@ note - it's not presently possible to have more than 1 helios object open.
 
 ## Use
 
-pd_helios currently builds on MacOS, tested on Mojave (OSX v10.14). It should work on both Linux and Microsoft Windows with the appropriate libusb library.
+pd_helios currently builds on MacOS, tested on Mojave (OSX v10.14). It builds on Ubuntu 16.04 x64 but I haven't got it to work - using a VM, don't know if this is the issue. It should work on Microsoft Windows with the appropriate libusb library.
 
 ## To build
 
