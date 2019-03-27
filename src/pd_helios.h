@@ -7,7 +7,7 @@
 
 #ifndef Helios_h
 #define Helios_h
-#define HELIOS_VERSION 0.1
+#define HELIOS_VERSION 0.2
 #define HELIOS_NODEVICE -1
 
 #define DEFAULT_SUBDIVIDE 15

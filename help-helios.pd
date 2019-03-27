@@ -50,7 +50,7 @@ number for an error;
 #X text 182 78 turn the red square!;
 #X text 111 26 <---------;
 #X text 182 26 activate the laser;
-#X text 23 277 pd_helios v0.1;
+#X text 23 277 pd_helios v0.2;
 #X connect 0 0 5 0;
 #X connect 1 0 5 0;
 #X connect 2 0 1 0;

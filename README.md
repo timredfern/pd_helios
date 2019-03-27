@@ -24,7 +24,7 @@ Clone this repo and the source code to pure data (see above)
 cd pd_helios
 
 make PDINCLUDEDIR=../pure-data/src/
-```
+```		
 
 (or wherever you cloned pure data)
 
@@ -38,6 +38,19 @@ pd help-helios.pd
 
 ```
 /Applications/Pd-l2ork.app/Contents/MacOS/nwjs help-helios.pd 
+```
+
+## Problems with old versions of MacOS (specifically EL Capitan)
+
+Install libusb from Homebrew
+
+First follow these instructions: https://brew.sh/
+
+Then:
+
+```
+brew install libusb
+
 ```
 
 ## Copyright
