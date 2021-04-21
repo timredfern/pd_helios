@@ -18,11 +18,12 @@ pd_helios currently builds on MacOS, tested on Mojave (OSX v10.14). It builds on
 
 ## To build
 
-Clone this repo and the source code to pure data (see above)
+Clone this repo and the source code to pure data
 
 ```
+git clone git@github.com:timredfern/pd_helios.git
+git clone https://github.com/pure-data/pure-data
 cd pd_helios
-
 make PDINCLUDEDIR=../pure-data/src/
 ```		
 
